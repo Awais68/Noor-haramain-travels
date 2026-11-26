@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nurul Haramain — Hajj & Umrah travel website (frontend demo)
 
-## Getting Started
+A cinematic, fully responsive frontend for a Karachi-based Hajj and Umrah agency.
+Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · Framer Motion · React Three Fiber.
 
-First, run the development server:
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
+# production
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Node 18.18+ (Node 20/22 recommended).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Route | What's on it |
+| --- | --- |
+| `/` | 3D gate-opening intro, cinematic hero with gold-dust Three.js layer, trust strip, featured packages, Makkah & Madinah parallax sections, journey timeline, services, photo ribbon, testimonials (demo), CTA |
+| `/packages` | Umrah + Hajj packages with working filters (type, tier, duration, sort), expandable inclusions, inquiry modal, room-sharing guide, Hajj arrangements section. `?type=Umrah` / `?type=Hajj` deep links |
+| `/hotels` | Makkah & Madinah hotels, city + category filters, availability inquiry. `?city=Makkah` / `?city=Madinah` |
+| `/about` | Introduction, mission, commitments, service process |
+| `/contact` | WhatsApp CTA, office details, business hours, map placeholder, validated inquiry form |
 
-## Learn More
+## Customise before showing to the client
 
-To learn more about Next.js, take a look at the following resources:
+Everything lives in **`src/lib/site.ts`**:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `site` — phone, WhatsApp number, email, address, business hours (all placeholders now).
+- `site.heroVideo` — put a **licensed** Masjid an-Nabawi clip at `public/video/hero.mp4`
+  (H.264, 1080p/4K, ~6–10 MB, muted) and set `heroVideo: "/video/hero.mp4"`. The photo is used as poster/fallback.
+- `photos` — Unsplash photo IDs (real photographs, Unsplash License). Swap IDs or replace with your own files.
+- `packages`, `hotels` — sample data. Prices are marked "sample" in the UI.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Notes
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Forms are frontend-only: validation runs in the browser and the success state hands the inquiry to WhatsApp. Wire `InquiryForm.submit` to an API/CRM when needed.
+- The intro gate plays once per browser session and is skipped for users with reduced-motion enabled.
+- The Three.js layer is lazy-loaded, uses fewer particles on mobile and is skipped on low-core devices.
+- Demo labels are shown on sample prices, hotels, testimonials and business details — remove them only when real, verified content replaces them.

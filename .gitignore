@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# image pipeline — keep large ORIGINALS local; only optimized /public/images ships
+/src/assets/original/*
+!/src/assets/original/.gitkeep
